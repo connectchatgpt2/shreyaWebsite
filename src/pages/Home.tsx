@@ -1,48 +1,91 @@
-import { ArrowRight, Leaf, Globe, Package } from 'lucide-react';
+import { ArrowRight, Leaf, Globe, Package, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { useState } from 'react';
 
 export default function Component() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      image: "/cardamom.png",
+      title: "Premium Green Cardamoms",
+      description: "Aromatic and flavorful, perfect for all cuisines."
+    },
+    {
+      image: "/cashew.png",
+      title: "Fresh Cashew Kernels",
+      description: "High-quality cashews for wholesale and retail."
+    }
+  ];
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100">
-      <motion.section 
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="bg-gradient-to-r from-green-600 to-green-800 text-white py-20"
-      >
-        <div className="container mx-auto px-4">
-          <motion.h1 
-            initial={{ opacity: 0, y: -50 }}
+      <section className="relative h-[60vh] bg-cover bg-center" style={{ backgroundImage: `url('${slides[currentSlide].image}')` }}>
+        <div className="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div className="absolute inset-0 flex flex-col justify-center items-start p-8 md:p-16 max-w-4xl">
+          <motion.h1
+            key={`title-${currentSlide}`}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-4xl md:text-6xl font-bold mb-4"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="text-4xl md:text-6xl font-bold text-white mb-4"
           >
-            Premium Spices & Nuts
+            {slides[currentSlide].title}
           </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-xl mb-8"
+          <motion.p
+            key={`description-${currentSlide}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="text-xl text-gray-300 mb-8"
           >
-            Wholesale Green Cardamoms and Fresh Cashew Kernels
+            {slides[currentSlide].description}
           </motion.p>
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
+            key={`button-${currentSlide}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <Button asChild variant="secondary" size="lg">
+            <Button asChild variant="default" size="lg" className="bg-indigo-600 hover:bg-indigo-700">
               <a href="/contact" className="inline-flex items-center">
-                Inquire Now <ArrowRight className="ml-2" />
+                Buy Now <ArrowRight className="ml-2" />
               </a>
             </Button>
           </motion.div>
         </div>
-      </motion.section>
+        <button 
+          onClick={prevSlide} 
+          className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full hover:bg-opacity-75 transition-all"
+        >
+          <ChevronLeft className="text-black" size={24} />
+        </button>
+        <button 
+          onClick={nextSlide} 
+          className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-50 p-2 rounded-full hover:bg-opacity-75 transition-all"
+        >
+          <ChevronRight className="text-black" size={24} />
+        </button>
+        <div className="absolute bottom-4 left-0 right-0 flex justify-center">
+          {slides.map((_, index) => (
+            <div 
+              key={index} 
+              className={`w-3 h-3 rounded-full mx-1 ${index === currentSlide ? 'bg-white' : 'bg-white bg-opacity-50'}`}
+            ></div>
+          ))}
+        </div>
+      </section>
 
       <section className="py-16 bg-green-50">
         <div className="container mx-auto px-6">
