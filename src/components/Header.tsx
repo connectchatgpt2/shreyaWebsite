@@ -4,11 +4,9 @@ import { motion } from 'framer-motion';
 import { FaHome, FaUser, FaCog, FaEnvelope } from 'react-icons/fa';
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Button } from "@/components/ui/button";
 
