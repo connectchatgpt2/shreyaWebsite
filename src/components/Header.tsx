@@ -27,10 +27,10 @@ const Header: React.FC = () => {
       >
         <img 
           src="/Logo.jpg" 
-          alt="OJASENTERPISES" 
+          alt="OJASENTERPRISES" 
           className="w-10 h-10 object-cover rounded-full" 
         />
-        <span className="text-3xl font-bold text-blue-600">OJAS ENTERPISES</span>
+        <span className="text-3xl font-bold text-blue-600">OJAS ENTERPRISES</span>
       </motion.div>
       <nav className="hidden md:block">
         <ul className="flex space-x-8">
