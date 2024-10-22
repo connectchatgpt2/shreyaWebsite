@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  darkMode: ["class"],
+  darkMode: 'class',
   content: [
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -57,7 +57,13 @@ module.exports = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
-  			}
+  			},
+  			'dark-bg': '#1c2128',
+  			'dark-card': '#22272e',
+  			'dark-border': '#444c56',
+  			'dark-text': '#adbac7',
+  			'dark-heading': '#ffffff',
+  			'dark-accent': '#539bf5',
   		},
   		borderRadius: {
   			lg: 'var(--radius)',

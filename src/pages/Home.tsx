@@ -56,7 +56,7 @@ export default function Home() {
   }, [activeSection]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100">
+    <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 dark:from-dark-bg dark:to-dark-bg">
       {/* Hero Section */}
       <motion.section 
         ref={heroRef}
@@ -73,7 +73,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-4xl md:text-6xl font-bold text-white mb-4"
+            className="text-4xl md:text-6xl font-bold text-white dark:text-dark-heading mb-4"
           >
             {slides[currentSlide].title}
           </motion.h1>
@@ -82,7 +82,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-xl text-gray-300 mb-8"
+            className="text-xl text-gray-300 dark:text-dark-text mb-8"
           >
             {slides[currentSlide].description}
           </motion.p>
@@ -92,7 +92,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            <Button asChild variant="default" size="lg" className="bg-indigo-600 hover:bg-indigo-700">
+            <Button asChild variant="default" size="lg" className="bg-indigo-600 hover:bg-indigo-700 dark:bg-dark-accent dark:hover:bg-dark-accent/90">
               <a href="/contact" className="inline-flex items-center">
                 Buy Now <ArrowRight className="ml-2" />
               </a>
@@ -127,18 +127,18 @@ export default function Home() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: productsInView ? 1 : 0, y: productsInView ? 0 : 50 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="py-16 bg-green-50"
+        className="py-16 bg-green-50 dark:bg-dark-bg"
       >
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Our Premium Products</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 dark:text-dark-heading">Our Premium Products</h2>
           <div className="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
             <motion.div
               whileHover={{ scale: 1.03 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Card className="h-full flex flex-col">
+              <Card className="h-full flex flex-col dark:bg-dark-card dark:border-dark-border">
                 <CardHeader>
-                  <CardTitle className="text-2xl mb-2">Premium Green Cardamoms</CardTitle>
+                  <CardTitle className="text-2xl mb-2 dark:text-dark-heading">Premium Green Cardamoms</CardTitle>
                   <Badge className="bg-teal-500 text-white">Bold & Aromatic</Badge>
                 </CardHeader>
                 <CardContent className="flex-grow">
@@ -147,8 +147,8 @@ export default function Home() {
                     alt="Green Cardamoms" 
                     className="w-full h-64 object-cover rounded-md mb-4"
                   />
-                  <p className="text-gray-600 mb-4">Perfect for all Cuisines</p>
-                  <ul className="list-disc list-inside text-gray-700 space-y-1">
+                  <p className="text-gray-600 dark:text-dark-text mb-4">Perfect for all Cuisines</p>
+                  <ul className="list-disc list-inside text-gray-700 dark:text-dark-text space-y-1">
                     <li>8 mm & above (Extra Bold)</li>
                     <li>7.5 mm & above (Bold)</li>
                     <li>7~8 mm (Medium)</li>
@@ -161,9 +161,9 @@ export default function Home() {
               whileHover={{ scale: 1.03 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Card className="h-full flex flex-col">
+              <Card className="h-full flex flex-col dark:bg-dark-card dark:border-dark-border">
                 <CardHeader>
-                  <CardTitle className="text-2xl mb-2">Fresh Cashew Kernels</CardTitle>
+                  <CardTitle className="text-2xl mb-2 dark:text-dark-heading">Fresh Cashew Kernels</CardTitle>
                   <Badge className="bg-teal-500 text-white">Premium Quality</Badge>
                 </CardHeader>
                 <CardContent className="flex-grow">
@@ -172,8 +172,8 @@ export default function Home() {
                     alt="Fresh Cashew Kernels" 
                     className="w-full h-64 object-cover rounded-md mb-4"
                   />
-                  <p className="text-gray-600 mb-4">Freshly Packed for Wholesale</p>
-                  <p className="text-gray-700">Our cashew kernels are carefully selected and packed to ensure the highest quality and freshness for our wholesale customers.</p>
+                  <p className="text-gray-600 dark:text-dark-text mb-4">Freshly Packed for Wholesale</p>
+                  <p className="text-gray-700 dark:text-dark-text">Our cashew kernels are carefully selected and packed to ensure the highest quality and freshness for our wholesale customers.</p>
                 </CardContent>
               </Card>
             </motion.div>
@@ -187,10 +187,10 @@ export default function Home() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: featuresInView ? 1 : 0, y: featuresInView ? 0 : 50 }}
         transition={{ duration: 0.5, delay: 0.4 }}
-        className="bg-green-50 py-16"
+        className="bg-green-50 dark:bg-dark-bg py-16"
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Choose Ojas Enterprises?</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 dark:text-dark-heading">Why Choose Ojas Enterprises?</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { title: "Premium Quality", icon: Leaf, description: "We source only the finest green cardamoms and cashew kernels." },
@@ -209,7 +209,7 @@ export default function Home() {
                     <CardTitle>{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600">{feature.description}</p>
+                    <p className="text-gray-600 dark:text-dark-text">{feature.description}</p>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -224,10 +224,10 @@ export default function Home() {
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: sectionsInView ? 1 : 0, y: sectionsInView ? 0 : 50 }}
         transition={{ duration: 0.5, delay: 0.6 }}
-        className="py-16 bg-white"
+        className="py-16 bg-white dark:bg-dark-bg"
       >
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12">Explore More</h2>
+          <h2 className="text-3xl font-bold text-center mb-12 dark:text-dark-heading">Explore More</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <Card>
               <CardHeader>

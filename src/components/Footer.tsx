@@ -21,7 +21,7 @@ const Footer: React.FC = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="bg-gradient-to-r from-green-800 to-green-900 text-white py-16"
+      className="bg-gradient-to-r from-blue-900 to-teal-800 dark:from-gray-900 dark:to-gray-800 text-white py-16"
     >
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -30,15 +30,15 @@ const Footer: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-bold mb-4">Ojas Enterprises</h3>
-            <p className="text-sm opacity-80">Premium Green Cardamoms and Fresh Cashew Kernels</p>
+            <h3 className="text-2xl font-bold mb-4 text-teal-300">Ojas Enterprises</h3>
+            <p className="text-sm text-blue-200 dark:text-gray-300">Premium Green Cardamoms and Fresh Cashew Kernels</p>
           </motion.div>
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
           >
-            <h4 className="text-xl font-semibold mb-4">Quick Links</h4>
+            <h4 className="text-xl font-semibold mb-4 text-teal-300">Quick Links</h4>
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <motion.li
@@ -49,7 +49,7 @@ const Footer: React.FC = () => {
                 >
                   <Link
                     to={link.path}
-                    className="hover:text-green-300 transition duration-200 ease-out"
+                    className="text-blue-200 dark:text-gray-300 hover:text-teal-300 dark:hover:text-teal-300 transition duration-200 ease-out"
                   >
                     {link.label}
                   </Link>
@@ -62,13 +62,13 @@ const Footer: React.FC = () => {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.6 }}
           >
-            <h4 className="text-xl font-semibold mb-4">Connect With Us</h4>
+            <h4 className="text-xl font-semibold mb-4 text-teal-300">Connect With Us</h4>
             <div className="flex space-x-4">
               {[Facebook, Instagram, Twitter].map((Icon, index) => (
                 <motion.a
                   key={index}
                   href="#"
-                  className="hover:text-green-300 transition duration-200 ease-out"
+                  className="text-blue-200 dark:text-gray-300 hover:text-teal-300 dark:hover:text-teal-300 transition duration-200 ease-out"
                   whileHover={{ scale: 1.2 }}
                   whileTap={{ scale: 0.9 }}
                 >
@@ -84,13 +84,13 @@ const Footer: React.FC = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.8 }}
         >
-          <p className="text-sm opacity-80">
+          <p className="text-sm text-blue-200 dark:text-gray-300">
             &copy; {new Date().getFullYear()} Ojas Enterprises. All rights reserved.
           </p>
         </motion.div>
         <motion.button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 bg-green-600 hover:bg-green-700 text-white p-3 rounded-full shadow-lg"
+          className="fixed bottom-8 right-8 bg-teal-600 hover:bg-teal-700 text-white p-3 rounded-full shadow-lg"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
         >

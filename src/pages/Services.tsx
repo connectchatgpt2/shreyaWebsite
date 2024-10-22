@@ -15,13 +15,13 @@ const Services: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-16">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 dark:from-dark-bg dark:to-dark-bg py-16">
       <div className="container mx-auto px-4">
         <motion.h1 
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-5xl font-bold text-gray-800 mb-8 text-center"
+          className="text-5xl font-bold text-gray-800 dark:text-dark-heading mb-8 text-center"
         >
           Our Services
         </motion.h1>
@@ -30,7 +30,7 @@ const Services: React.FC = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto"
+          className="text-xl text-gray-600 dark:text-dark-text text-center mb-12 max-w-3xl mx-auto"
         >
           From premium products to global shipping, we offer comprehensive solutions tailored to your business needs.
         </motion.p>
@@ -43,16 +43,16 @@ const Services: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
             >
-              <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+              <Card className="h-full hover:shadow-lg transition-shadow duration-300 dark:bg-dark-card dark:border-dark-border">
                 <CardHeader>
                   <div className={`w-16 h-16 ${service.color} rounded-full flex items-center justify-center mb-4`}>
                     <service.icon size={32} className="text-white" />
                   </div>
-                  <CardTitle className="text-2xl mb-2">{service.title}</CardTitle>
+                  <CardTitle className="text-2xl mb-2 dark:text-dark-heading">{service.title}</CardTitle>
                   <Badge className={`${service.color} text-white`}>{service.title}</Badge>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-gray-600">{service.description}</p>
+                  <p className="text-gray-600 dark:text-dark-text">{service.description}</p>
                 </CardContent>
               </Card>
             </motion.div>

@@ -27,13 +27,13 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 py-16">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-100 dark:from-dark-bg dark:to-dark-bg py-16">
       <div className="container mx-auto px-4">
         <motion.h1 
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="text-5xl font-bold text-blue-800 mb-8 text-center"
+          className="text-5xl font-bold text-blue-800 dark:text-dark-heading mb-8 text-center"
         >
           Contact Us
         </motion.h1>
@@ -43,12 +43,12 @@ const Contact: React.FC = () => {
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white rounded-lg shadow-xl p-8"
+            className="bg-white dark:bg-dark-card rounded-lg shadow-xl p-8"
           >
-            <h2 className="text-3xl font-semibold text-blue-700 mb-6">Get in Touch</h2>
+            <h2 className="text-3xl font-semibold text-blue-700 dark:text-dark-accent mb-6">Get in Touch</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">Name</label>
+                <label htmlFor="name" className="block text-gray-700 dark:text-dark-text font-semibold mb-2">Name</label>
                 <Input
                   type="text"
                   id="name"
@@ -56,11 +56,11 @@ const Contact: React.FC = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full"
+                  className="w-full dark:bg-dark-bg dark:text-dark-text"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">Email</label>
+                <label htmlFor="email" className="block text-gray-700 dark:text-dark-text font-semibold mb-2">Email</label>
                 <Input
                   type="email"
                   id="email"
@@ -68,11 +68,11 @@ const Contact: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full"
+                  className="w-full dark:bg-dark-bg dark:text-dark-text"
                 />
               </div>
               <div>
-                <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">Message</label>
+                <label htmlFor="message" className="block text-gray-700 dark:text-dark-text font-semibold mb-2">Message</label>
                 <Textarea
                   id="message"
                   name="message"
@@ -80,10 +80,10 @@ const Contact: React.FC = () => {
                   onChange={handleChange}
                   required
                   rows={4}
-                  className="w-full"
+                  className="w-full dark:bg-dark-bg dark:text-dark-text"
                 />
               </div>
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full dark:bg-dark-accent dark:text-dark-heading">
                 Send Message
               </Button>
             </form>
@@ -93,28 +93,28 @@ const Contact: React.FC = () => {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.4 }}
-            className="bg-white rounded-lg shadow-xl p-8"
+            className="bg-white dark:bg-dark-card rounded-lg shadow-xl p-8"
           >
-            <h2 className="text-3xl font-semibold text-blue-700 mb-6">Our Information</h2>
+            <h2 className="text-3xl font-semibold text-blue-700 dark:text-dark-accent mb-6">Our Information</h2>
             <div className="space-y-6">
               <div className="flex items-start space-x-4">
-                <MapPin className="text-blue-600 mt-1" size={24} />
-                <p className="text-gray-700">Mayur Vihar Phase I, Delhi 110091 INDIA</p>
+                <MapPin className="text-blue-600 dark:text-dark-accent mt-1" size={24} />
+                <p className="text-gray-700 dark:text-dark-text">Mayur Vihar Phase I, Delhi 110091 INDIA</p>
               </div>
               <div className="flex items-center space-x-4">
-                <Phone className="text-blue-600" size={24} />
-                <p className="text-gray-700">+91 9999886959</p>
+                <Phone className="text-blue-600 dark:text-dark-accent" size={24} />
+                <p className="text-gray-700 dark:text-dark-text">+91 9999886959</p>
               </div>
               <div className="flex items-center space-x-4">
-                <Mail className="text-blue-600" size={24} />
-                <p className="text-gray-700">sales@ojasenterprises.in</p>
+                <Mail className="text-blue-600 dark:text-dark-accent" size={24} />
+                <p className="text-gray-700 dark:text-dark-text">sales@ojasenterprises.in</p>
               </div>
               <div className="flex items-start space-x-4">
-                <Clock className="text-blue-600 mt-1" size={24} />
+                <Clock className="text-blue-600 dark:text-dark-accent mt-1" size={24} />
                 <div>
-                  <p className="text-gray-700">Monday - Friday: 9:00 AM - 5:00 PM</p>
-                  <p className="text-gray-700">Saturday: 10:00 AM - 2:00 PM</p>
-                  <p className="text-gray-700">Sunday: Closed</p>
+                  <p className="text-gray-700 dark:text-dark-text">Monday - Friday: 9:00 AM - 5:00 PM</p>
+                  <p className="text-gray-700 dark:text-dark-text">Saturday: 10:00 AM - 2:00 PM</p>
+                  <p className="text-gray-700 dark:text-dark-text">Sunday: Closed</p>
                 </div>
               </div>
             </div>
