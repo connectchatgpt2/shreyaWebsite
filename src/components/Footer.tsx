@@ -2,27 +2,35 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Facebook, Instagram, Twitter, ArrowUp } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer: React.FC = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const quickLinks = [
+    { label: 'Home', path: '/' },
+    { label: 'About Us', path: '/about' },
+    { label: 'Services', path: '/services' },
+    { label: 'Contact', path: '/contact' },
+  ];
+
   return (
     <motion.footer
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="bg-gradient-to-r from-green-800 to-green-900 text-white py-12"
+      className="bg-gradient-to-r from-green-800 to-green-900 text-white py-16"
     >
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           <motion.div
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-bold mb-4">Nature Fresh Wholesale</h3>
+            <h3 className="text-2xl font-bold mb-4">Ojas Enterprises</h3>
             <p className="text-sm opacity-80">Premium Green Cardamoms and Fresh Cashew Kernels</p>
           </motion.div>
           <motion.div
@@ -32,19 +40,19 @@ const Footer: React.FC = () => {
           >
             <h4 className="text-xl font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {['Home', 'About Us', 'Services', 'Contact'].map((item, index) => (
+              {quickLinks.map((link, index) => (
                 <motion.li
-                  key={item}
+                  key={link.label}
                   initial={{ x: -20, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ duration: 0.3, delay: 0.5 + index * 0.1 }}
                 >
-                  <a
-                    href={`/${item.toLowerCase().replace(' ', '-')}`}
+                  <Link
+                    to={link.path}
                     className="hover:text-green-300 transition duration-200 ease-out"
                   >
-                    {item}
-                  </a>
+                    {link.label}
+                  </Link>
                 </motion.li>
               ))}
             </ul>
@@ -71,13 +79,13 @@ const Footer: React.FC = () => {
           </motion.div>
         </div>
         <motion.div
-          className="mt-8 text-center"
+          className="mt-12 text-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.8 }}
         >
           <p className="text-sm opacity-80">
-            &copy; {new Date().getFullYear()} Nature Fresh Wholesale. All rights reserved.
+            &copy; {new Date().getFullYear()} Ojas Enterprises. All rights reserved.
           </p>
         </motion.div>
         <motion.button

@@ -1,112 +1,210 @@
-import React, { useState } from 'react';
-import { MapPin, Phone, Mail } from 'lucide-react';
+'use client'
 
-const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: '',
-  });
+import React from 'react'
+import { motion } from 'framer-motion'
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
+interface IconCircleProps {
+  color: string;
+  icon: string;
+  x: number;
+  y: number;
+  delay: number;
+}
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    setFormData({ name: '', email: '', message: '' });
-  };
+const IconCircle: React.FC<IconCircleProps> = ({ color, icon, x, y, delay }) => (
+  <motion.g
+    initial={{ opacity: 0, scale: 0 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5, delay }}
+  >
+    <circle cx={x} cy={y} r="30" fill={color} filter="url(#shadow)" />
+    <text x={x} y={y} textAnchor="middle" dominantBaseline="central" fill="white" fontSize="20">
+      {icon}
+    </text>
+  </motion.g>
+)
+
+interface SpeechBubbleProps {
+  color: string;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+  direction: 'left' | 'right';
+  delay: number;
+}
+
+const SpeechBubble: React.FC<SpeechBubbleProps> = ({ color, x, y, width, height, direction, delay }) => {
+  const path = direction === 'right'
+    ? `M${x},${y} h${width-30} a15,15 0 0 1 15,15 v${height-30} a15,15 0 0 1 -15,15 h-${width-30} q-15,0 -30,15 l15,-15 h-15 a15,15 0 0 1 -15,-15 v-${height-30} a15,15 0 0 1 15,-15 z`
+    : `M${x+width},${y} h-${width-30} a15,15 0 0 0 -15,15 v${height-30} a15,15 0 0 0 15,15 h${width-30} q15,0 30,15 l-15,-15 h15 a15,15 0 0 0 15,-15 v-${height-30} a15,15 0 0 0 -15,-15 z`
 
   return (
-    <div className="min-h-screen bg-gray-100 py-16">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-green-800 mb-8 text-center">Contact Us</h1>
-        
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold text-green-700 mb-4">Get in Touch</h2>
-            <form onSubmit={handleSubmit}>
-              <div className="mb-4">
-                <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">Email</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="message" className="block text-gray-700 font-semibold mb-2">Message</label>
-                <textarea
-                  id="message"
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows={4}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
-                ></textarea>
-              </div>
-              <button type="submit" className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition duration-300">
-                Send Message
-              </button>
-            </form>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold text-green-700 mb-4">Our Information</h2>
-            <div className="space-y-4">
-              <p className="flex items-center text-gray-700">
-                <MapPin className="mr-2" />  Mayur Vihar Phase I, Delhi 110091 INDIA
-              </p>
-              <p className="flex items-center text-gray-700">
-                <Phone className="mr-2" /> +91 9999886959
-              </p>
-              <p className="flex items-center text-gray-700">
-                <Mail className="mr-2" /> sales@ojasenterprises.in
-              </p>
-            </div>
-            <div className="mt-6">
-              <h3 className="text-xl font-semibold text-green-600 mb-2">Business Hours</h3>
-              <p className="text-gray-700">Monday - Friday: 9:00 AM - 5:00 PM</p>
-              <p className="text-gray-700">Saturday: 10:00 AM - 2:00 PM</p>
-              <p className="text-gray-700">Sunday: Closed</p>
-            </div>
-            <div className="mt-6">
-              <iframe
-                src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Mayur%20Vihar%20Phase%20I,%20Delhi%20110091%20INDIA+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
-                width="100%"
-                height="300"
-                style={{ border: 0 }}
-                allowFullScreen={true}
-                loading="lazy"
-              ></iframe>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+    <motion.path
+      d={path}
+      fill={color}
+      filter="url(#shadow)"
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.5, delay }}
+    />
+  )
+}
 
-export default Contact;
+export default function Component() {
+  return (
+    <div className="w-full h-screen flex items-center justify-center bg-white p-4">
+      <svg viewBox="0 0 800 600" className="w-full max-w-4xl">
+        <defs>
+          <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feOffset result="offOut" in="SourceAlpha" dx="2" dy="2" />
+            <feGaussianBlur result="blurOut" in="offOut" stdDeviation="5" />
+            <feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+          </filter>
+        </defs>
+
+        <motion.circle
+          cx="400" cy="300" r="60"
+          fill="#333333"
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.5 }}
+        />
+        <motion.text
+          x="400" y="290"
+          textAnchor="middle"
+          fill="white"
+          fontSize="12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          Lorem ipsum dolor
+        </motion.text>
+        <motion.text
+          x="400" y="310"
+          textAnchor="middle"
+          fill="white"
+          fontSize="12"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+        >
+          amet, consectetur
+        </motion.text>
+
+        <SpeechBubble color="#4CAF50" x={50} y={100} width={300} height={100} direction="right" delay={0.2} />
+        <SpeechBubble color="#FFA000" x={450} y={100} width={300} height={100} direction="left" delay={0.3} />
+        <SpeechBubble color="#2196F3" x={50} y={400} width={300} height={100} direction="right" delay={0.4} />
+        <SpeechBubble color="#F44336" x={450} y={400} width={300} height={100} direction="left" delay={0.5} />
+
+        <IconCircle color="#4CAF50" icon="🌐" x={30} y={80} delay={0.6} />
+        <IconCircle color="#4CAF50" icon="✉️" x={30} y={220} delay={0.7} />
+        <IconCircle color="#FFA000" icon="🧩" x={770} y={80} delay={0.8} />
+        <IconCircle color="#FFA000" icon="⚙️" x={770} y={220} delay={0.9} />
+        <IconCircle color="#2196F3" icon="🏠" x={30} y={380} delay={1.0} />
+        <IconCircle color="#2196F3" icon="📞" x={30} y={520} delay={1.1} />
+        <IconCircle color="#F44336" icon="📊" x={770} y={520} delay={1.2} />
+
+        {['#4CAF50', '#FFA000', '#2196F3', '#F44336'].map((color, index) => (
+          <React.Fragment key={color}>
+            <motion.circle
+              cx={index % 2 === 0 ? 200 : 600}
+              cy={index < 2 ? 150 : 450}
+              r="15"
+              fill="white"
+              stroke={color}
+              strokeWidth="2"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 1.3 + index * 0.1 }}
+            />
+            <motion.text
+              x={index % 2 === 0 ? 200 : 600}
+              y={index < 2 ? 150 : 450}
+              textAnchor="middle"
+              dominantBaseline="central"
+              fill={color}
+              fontSize="16"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.3 + index * 0.1 }}
+            >
+              👤
+            </motion.text>
+          </React.Fragment>
+        ))}
+
+        {['#4CAF50', '#FFA000', '#2196F3', '#F44336'].map((color, index) => (
+          <motion.text
+            key={color}
+            x={index % 2 === 0 ? 220 : 580}
+            y={index < 2 ? 130 : 430}
+            fill="white"
+            fontSize="18"
+            fontWeight="bold"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.7 + index * 0.1 }}
+          >
+            LOREM IPSUM
+          </motion.text>
+        ))}
+
+        {['#4CAF50', '#FFA000', '#2196F3', '#F44336'].map((color, index) => (
+          <motion.text
+            key={color}
+            x={index % 2 === 0 ? 220 : 580}
+            y={index < 2 ? 150 : 450}
+            fill="white"
+            fontSize="12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.8 + index * 0.1 }}
+          >
+            Lorem ipsum dolor sit amet,
+          </motion.text>
+        ))}
+
+        {['#4CAF50', '#FFA000', '#2196F3', '#F44336'].map((color, index) => (
+          <motion.text
+            key={color}
+            x={index % 2 === 0 ? 220 : 580}
+            y={index < 2 ? 170 : 470}
+            fill="white"
+            fontSize="12"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.9 + index * 0.1 }}
+          >
+            consectetur adipiscing elit.
+          </motion.text>
+        ))}
+
+        <motion.text
+          x="200" y="570"
+          fill="#999"
+          fontSize="24"
+          fontWeight="bold"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.0 }}
+        >
+          INFOGRAPHICS
+        </motion.text>
+
+        <motion.text
+          x="600" y="570"
+          fill="#999"
+          fontSize="24"
+          fontWeight="bold"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2.1 }}
+        >
+          DESIGN TEMPLATE
+        </motion.text>
+      </svg>
+    </div>
+  )
+}

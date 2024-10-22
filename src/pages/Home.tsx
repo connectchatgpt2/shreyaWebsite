@@ -1,12 +1,26 @@
 import { ArrowRight, Leaf, Globe, Package, ChevronLeft, ChevronRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import Services from './Services';
+import About from './About';
+import Contact from './Contact';
 
-export default function Component() {
+export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const heroRef = useRef(null);
+  const productsRef = useRef(null);
+  const featuresRef = useRef(null);
+  const sectionsRef = useRef(null);
+  const dynamicContentRef = useRef<HTMLDivElement>(null);
+
+  const heroInView = useInView(heroRef, { once: true });
+  const productsInView = useInView(productsRef, { once: true });
+  const featuresInView = useInView(featuresRef, { once: true });
+  const sectionsInView = useInView(sectionsRef, { once: true });
 
   const slides = [
     {
@@ -29,9 +43,29 @@ export default function Component() {
     setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
+  const toggleSection = (section: string) => {
+    setActiveSection(section);
+  };
+
+  useEffect(() => {
+    if (activeSection && dynamicContentRef.current) {
+      const yOffset = -100; // Adjust this value to fine-tune the scroll position
+      const y = dynamicContentRef.current.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+    }
+  }, [activeSection]);
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100">
-      <section className="relative h-[60vh] bg-cover bg-center" style={{ backgroundImage: `url('${slides[currentSlide].image}')` }}>
+      {/* Hero Section */}
+      <motion.section 
+        ref={heroRef}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: heroInView ? 1 : 0, y: heroInView ? 0 : 50 }}
+        transition={{ duration: 0.5 }}
+        className="relative h-[60vh] bg-cover bg-center"
+        style={{ backgroundImage: `url('${slides[currentSlide].image}')` }}
+      >
         <div className="absolute inset-0 bg-black bg-opacity-60"></div>
         <div className="absolute inset-0 flex flex-col justify-center items-start p-8 md:p-16 max-w-4xl">
           <motion.h1
@@ -85,9 +119,16 @@ export default function Component() {
             ></div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className="py-16 bg-green-50">
+      {/* Products Section */}
+      <motion.section 
+        ref={productsRef}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: productsInView ? 1 : 0, y: productsInView ? 0 : 50 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="py-16 bg-green-50"
+      >
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">Our Premium Products</h2>
           <div className="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
@@ -138,9 +179,16 @@ export default function Component() {
             </motion.div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
-      <section className="bg-green-50 py-16">
+      {/* Features Section */}
+      <motion.section 
+        ref={featuresRef}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: featuresInView ? 1 : 0, y: featuresInView ? 0 : 50 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="bg-green-50 py-16"
+      >
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12">Why Choose Ojas Enterprises?</h2>
           <div className="grid md:grid-cols-3 gap-8">
@@ -168,7 +216,94 @@ export default function Component() {
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
+
+      {/* Explore More Section */}
+      <motion.section
+        ref={sectionsRef}
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: sectionsInView ? 1 : 0, y: sectionsInView ? 0 : 50 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        className="py-16 bg-white"
+      >
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-center mb-12">Explore More</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card>
+              <CardHeader>
+                <CardTitle>Our Services</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="mb-4">Discover our range of wholesale options and international shipping services.</p>
+                <Button onClick={() => toggleSection('services')} variant="outline">
+                  Learn More
+                </Button>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>About Us</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="mb-4">Learn about our commitment to quality and customer satisfaction.</p>
+                <Button onClick={() => toggleSection('about')} variant="outline">
+                  Discover Our Story
+                </Button>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Contact Us</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="mb-4">Get in touch with us for inquiries or to place an order.</p>
+                <Button onClick={() => toggleSection('contact')} variant="outline">
+                  Reach Out
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Dynamic Content Section */}
+      <div ref={dynamicContentRef}>
+        <AnimatePresence mode="wait">
+          {activeSection === 'services' && (
+            <motion.div
+              key="services"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Services />
+            </motion.div>
+          )}
+          {activeSection === 'about' && (
+            <motion.div
+              key="about"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.5 }}
+            >
+              <About />
+            </motion.div>
+          )}
+          {activeSection === 'contact' && (
+            <motion.div
+              key="contact"
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -50 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Contact />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     </div>
   );
 }

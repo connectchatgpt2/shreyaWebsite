@@ -1,62 +1,62 @@
 import React from 'react';
-import { Package, Truck, Globe } from 'lucide-react';
+import { Package, Truck, Globe, CheckCircle, Coffee, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 
 const Services: React.FC = () => {
+  const services = [
+    { title: "Wholesale Options", icon: Package, description: "Flexible packaging solutions for businesses of all sizes.", color: "bg-blue-500" },
+    { title: "Green Cardamom Varieties", icon: Coffee, description: "Premium cardamom in various grades and sizes.", color: "bg-green-500" },
+    { title: "International Shipping", icon: Globe, description: "Reliable worldwide delivery for your orders.", color: "bg-purple-500" },
+    { title: "Quality Assurance", icon: CheckCircle, description: "Rigorous quality control for every product.", color: "bg-yellow-500" },
+    { title: "Custom Packaging", icon: Zap, description: "Tailored packaging solutions for your brand.", color: "bg-red-500" },
+    { title: "Express Delivery", icon: Truck, description: "Fast and efficient local and international shipping.", color: "bg-indigo-500" },
+  ];
+
   return (
-    <div className="min-h-screen bg-gray-100 py-16">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 py-16">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl font-bold text-green-800 mb-8 text-center">Our Services</h1>
+        <motion.h1 
+          initial={{ opacity: 0, y: -50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-5xl font-bold text-gray-800 mb-8 text-center"
+        >
+          Our Services
+        </motion.h1>
         
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold text-green-700 mb-4 flex items-center">
-              <Package className="mr-2" /> Wholesale Options
-            </h2>
-            <p className="text-gray-700 mb-4">
-              We offer a range of wholesale options to meet the diverse needs of our customers. Our flexible packaging and customization options ensure that you get exactly what you need for your business.
-            </p>
-            <h3 className="text-xl font-semibold text-green-600 mb-2">Packaging Options:</h3>
-            <ul className="list-disc list-inside text-gray-700 mb-4">
-              <li>50 Kg Gunny Bags</li>
-              <li>1 KG Oxo-poly bags</li>
-              <li>500 gm Oxo-poly bags</li>
-              <li>Premium Customized packaging for export orders</li>
-            </ul>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow-lg p-6">
-            <h2 className="text-2xl font-semibold text-green-700 mb-4 flex items-center">
-              <Globe className="mr-2" /> Green Cardamom Varieties
-            </h2>
-            <p className="text-gray-700 mb-4">
-              We pride ourselves on offering a variety of high-quality green cardamom options to suit different culinary needs and preferences.
-            </p>
-            <h3 className="text-xl font-semibold text-green-600 mb-2">Available Sizes:</h3>
-            <ul className="list-disc list-inside text-gray-700 mb-4">
-              <li>8 mm & above (Extra Bold)</li>
-              <li>7.5 mm & above (Bold)</li>
-              <li>7~8 mm (Medium)</li>
-              <li>6~7 mm (Small)</li>
-            </ul>
-            <p className="text-gray-700">
-              All our cardamom varieties are carefully graded and sorted to ensure consistency in size and quality.
-            </p>
-          </div>
-        </div>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-xl text-gray-600 text-center mb-12 max-w-3xl mx-auto"
+        >
+          From premium products to global shipping, we offer comprehensive solutions tailored to your business needs.
+        </motion.p>
         
-        <div className="mt-8 bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-2xl font-semibold text-green-700 mb-4 flex items-center">
-            <Truck className="mr-2" /> International Shipping and Export
-          </h2>
-          <p className="text-gray-700 mb-4">
-            We offer international shipping and export services for large wholesale orders. Our team has extensive experience in handling global logistics, ensuring that your products arrive fresh and on time, no matter where you are in the world.
-          </p>
-          <ul className="list-disc list-inside text-gray-700">
-            <li>Expertise in international trade regulations</li>
-            <li>Secure and efficient packaging for long-distance transport</li>
-            <li>Flexible shipping options to meet your specific needs</li>
-            <li>Full support and tracking throughout the shipping process</li>
-          </ul>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, index) => (
+            <motion.div
+              key={service.title}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Card className="h-full hover:shadow-lg transition-shadow duration-300">
+                <CardHeader>
+                  <div className={`w-16 h-16 ${service.color} rounded-full flex items-center justify-center mb-4`}>
+                    <service.icon size={32} className="text-white" />
+                  </div>
+                  <CardTitle className="text-2xl mb-2">{service.title}</CardTitle>
+                  <Badge className={`${service.color} text-white`}>{service.title}</Badge>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-600">{service.description}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
         </div>
       </div>
     </div>
