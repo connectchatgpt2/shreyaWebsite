@@ -85,12 +85,12 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, product })
                 <X className="h-6 w-6" />
               </Button>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-6 p-6">
                 <motion.div
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="p-6"
+                  className="flex flex-col space-y-4"
                 >
                   <motion.img
                     initial={{ opacity: 0 }}
@@ -98,75 +98,76 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, product })
                     transition={{ delay: 0.3 }}
                     src={product.image}
                     alt={product.title}
-                    className="w-full h-[300px] object-cover rounded-lg shadow-lg"
+                    className="w-full h-[250px] md:h-[300px] object-cover rounded-lg shadow-lg"
                   />
-                  <div className="mt-6 space-y-4">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.4 }}
-                    >
-                      <h3 className="text-lg font-semibold dark:text-gray-200">Available Varieties</h3>
-                      <div className="flex flex-wrap gap-2 mt-2">
-                        {product.varieties.map((variety, index) => (
-                          <Badge
-                            key={index}
-                            variant="secondary"
-                            className="dark:bg-gray-700"
-                          >
-                            {variety}
-                          </Badge>
-                        ))}
-                      </div>
-                    </motion.div>
-                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="space-y-3"
+                  >
+                    <h3 className="text-lg font-semibold dark:text-gray-200">Available Varieties</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {product.varieties.map((variety, index) => (
+                        <Badge
+                          key={index}
+                          variant="secondary"
+                          className="dark:bg-gray-700"
+                        >
+                          {variety}
+                        </Badge>
+                      ))}
+                    </div>
+                  </motion.div>
                 </motion.div>
 
                 <motion.div
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="p-6"
+                  className="flex flex-col space-y-6"
                 >
-                  <h2 className="text-3xl font-bold mb-4 dark:text-gray-200">{product.title}</h2>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6">{product.description}</p>
-
-                  <div className="space-y-6">
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.5 }}
-                    >
-                      <h3 className="text-lg font-semibold mb-3 dark:text-gray-200">Product Details</h3>
-                      <div className="space-y-2">
-                        {product.details.map((detail, index) => (
-                          <div key={index} className="flex justify-between border-b dark:border-gray-700 py-2">
-                            <span className="text-gray-600 dark:text-gray-400">{detail.label}</span>
-                            <span className="font-medium dark:text-gray-200">{detail.value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.6 }}
-                    >
-                      <h3 className="text-lg font-semibold mb-3 dark:text-gray-200">Benefits</h3>
-                      <ul className="list-disc list-inside space-y-2">
-                        {product.benefits.map((benefit, index) => (
-                          <li key={index} className="text-gray-600 dark:text-gray-300">{benefit}</li>
-                        ))}
-                      </ul>
-                    </motion.div>
+                  <div>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-4 dark:text-gray-200">{product.title}</h2>
+                    <p className="text-gray-600 dark:text-gray-300">{product.description}</p>
                   </div>
 
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                    className="space-y-3"
+                  >
+                    <h3 className="text-lg font-semibold dark:text-gray-200">Product Details</h3>
+                    <div className="space-y-2">
+                      {product.details.map((detail, index) => (
+                        <div key={index} className="flex justify-between border-b dark:border-gray-700 py-2">
+                          <span className="text-gray-600 dark:text-gray-400">{detail.label}</span>
+                          <span className="font-medium dark:text-gray-200">{detail.value}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.6 }}
+                    className="space-y-3"
+                  >
+                    <h3 className="text-lg font-semibold dark:text-gray-200">Benefits</h3>
+                    <ul className="list-disc list-inside space-y-2">
+                      {product.benefits.map((benefit, index) => (
+                        <li key={index} className="text-gray-600 dark:text-gray-300">{benefit}</li>
+                      ))}
+                    </ul>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
-                    className="mt-8"
+                    className="pt-4"
                   >
                     <Button className="w-full" size="lg">
                       Request Quote
