@@ -7,6 +7,7 @@ import { useState, useRef, useEffect } from 'react';
 import Services from './Services';
 import About from './About';
 import Contact from './Contact';
+import ProductModal from '../components/ProductModal';
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -16,6 +17,7 @@ export default function Home() {
   const featuresRef = useRef(null);
   const sectionsRef = useRef(null);
   const dynamicContentRef = useRef<HTMLDivElement>(null);
+  const [selectedProduct, setSelectedProduct] = useState<any>(null);
 
   const heroInView = useInView(heroRef, { once: true });
   const productsInView = useInView(productsRef, { once: true });
@@ -54,6 +56,61 @@ export default function Home() {
       window.scrollTo({ top: y, behavior: 'smooth' });
     }
   }, [activeSection]);
+
+  // Add product data
+  const products = [
+    {
+      id: 1,
+      image: "/cardamom.png",
+      title: "Premium Green Cardamoms",
+      shortDescription: "Aromatic and flavorful, perfect for all cuisines.",
+      description: "Our premium green cardamoms are carefully selected and processed to ensure the highest quality. Known for their intense aroma and distinctive flavor, these cardamoms are perfect for both culinary and medicinal purposes.",
+      details: [
+        { label: "Origin", value: "Kerala, India" },
+        { label: "Grade", value: "Premium Export Quality" },
+        { label: "Packaging", value: "Vacuum Sealed" },
+        { label: "Shelf Life", value: "24 months" },
+      ],
+      varieties: [
+        "8 mm & above (Extra Bold)",
+        "7.5 mm & above (Bold)",
+        "7~8 mm (Medium)",
+        "6~7 mm (Small)",
+      ],
+      benefits: [
+        "Rich in antioxidants and anti-inflammatory compounds",
+        "Natural breath freshener",
+        "Aids digestion and metabolism",
+        "Perfect for both sweet and savory dishes",
+      ],
+    },
+    {
+      id: 2,
+      image: "/cashew.png",
+      title: "Fresh Cashew Kernels",
+      shortDescription: "High-quality cashews for wholesale and retail.",
+      description: "Our premium cashew kernels are processed and packed under strict quality control measures. Each kernel is carefully selected to ensure consistent size, color, and taste.",
+      details: [
+        { label: "Origin", value: "Karnataka, India" },
+        { label: "Grade", value: "W320" },
+        { label: "Packaging", value: "Nitrogen Flushed" },
+        { label: "Shelf Life", value: "12 months" },
+      ],
+      varieties: [
+        "W180",
+        "W210",
+        "W240",
+        "W320",
+        "W450",
+      ],
+      benefits: [
+        "Rich in heart-healthy fats",
+        "Excellent source of protein",
+        "Contains essential minerals",
+        "Versatile ingredient for various recipes",
+      ],
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-green-100 dark:from-dark-bg dark:to-dark-bg">
@@ -132,54 +189,40 @@ export default function Home() {
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12 dark:text-dark-heading">Our Premium Products</h2>
           <div className="grid md:grid-cols-2 gap-12 max-w-7xl mx-auto">
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Card className="h-full flex flex-col dark:bg-dark-card dark:border-dark-border">
-                <CardHeader>
-                  <CardTitle className="text-2xl mb-2 dark:text-dark-heading">Premium Green Cardamoms</CardTitle>
-                  <Badge className="bg-teal-500 text-white">Bold & Aromatic</Badge>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <img 
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSltm4hbPUMPIZxYdE2hAlxFM4BqU82mSIRdw&s" 
-                    alt="Green Cardamoms" 
-                    className="w-full h-64 object-cover rounded-md mb-4"
-                  />
-                  <p className="text-gray-600 dark:text-dark-text mb-4">Perfect for all Cuisines</p>
-                  <ul className="list-disc list-inside text-gray-700 dark:text-dark-text space-y-1">
-                    <li>8 mm & above (Extra Bold)</li>
-                    <li>7.5 mm & above (Bold)</li>
-                    <li>7~8 mm (Medium)</li>
-                    <li>6~7 mm (Small)</li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </motion.div>
-            <motion.div
-              whileHover={{ scale: 1.03 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              <Card className="h-full flex flex-col dark:bg-dark-card dark:border-dark-border">
-                <CardHeader>
-                  <CardTitle className="text-2xl mb-2 dark:text-dark-heading">Fresh Cashew Kernels</CardTitle>
-                  <Badge className="bg-teal-500 text-white">Premium Quality</Badge>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <img 
-                    src="https://img.freepik.com/premium-photo/premium-cashew-nuts-beautifully-wood-background-creating-inviting-wholesome-image-perfect-your-culinary-healthrelated-projects-add-your-text-branding-with-copy-space_13364-17433.jpg" 
-                    alt="Fresh Cashew Kernels" 
-                    className="w-full h-64 object-cover rounded-md mb-4"
-                  />
-                  <p className="text-gray-600 dark:text-dark-text mb-4">Freshly Packed for Wholesale</p>
-                  <p className="text-gray-700 dark:text-dark-text">Our cashew kernels are carefully selected and packed to ensure the highest quality and freshness for our wholesale customers.</p>
-                </CardContent>
-              </Card>
-            </motion.div>
+            {products.map((product) => (
+              <motion.div
+                key={product.id}
+                whileHover={{ scale: 1.03 }}
+                transition={{ type: "spring", stiffness: 300 }}
+                onClick={() => setSelectedProduct(product)}
+                className="cursor-pointer"
+              >
+                <Card className="h-full flex flex-col dark:bg-dark-card dark:border-dark-border">
+                  <CardHeader>
+                    <CardTitle className="text-2xl mb-2 dark:text-dark-heading">{product.title}</CardTitle>
+                    <Badge className="bg-teal-500 text-white">Premium Quality</Badge>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <img 
+                      src={product.image}
+                      alt={product.title}
+                      className="w-full h-64 object-cover rounded-md mb-4"
+                    />
+                    <p className="text-gray-600 dark:text-dark-text mb-4">{product.shortDescription}</p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </div>
         </div>
       </motion.section>
+
+      {/* Add the ProductModal component */}
+      <ProductModal
+        isOpen={!!selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+        product={selectedProduct || products[0]}
+      />
 
       {/* Features Section */}
       <motion.section 
