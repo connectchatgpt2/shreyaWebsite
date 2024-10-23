@@ -21,28 +21,14 @@ interface ProductModalProps {
 }
 
 const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, product }) => {
-  // Add useEffect to handle body scroll and positioning
   React.useEffect(() => {
     if (isOpen) {
-      // Prevent background scrolling when modal is open
       document.body.style.overflow = 'hidden';
-      
-      // Calculate header height (assuming header height is 64px, adjust if different)
-      const headerHeight = 64; 
-      
-      // Get current scroll position
-      const scrollY = window.scrollY;
-      
-      // Calculate the modal position
-      const modalTop = Math.max(headerHeight, scrollY + headerHeight);
-      
-      // Scroll to position
       window.scrollTo({
-        top: modalTop,
+        top: 0,
         behavior: 'smooth'
       });
     } else {
-      // Restore scrolling when modal is closed
       document.body.style.overflow = 'unset';
     }
 
@@ -67,15 +53,13 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, product })
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.75, y: 50 }}
             transition={{ type: "spring", duration: 0.5 }}
-            className="fixed z-50 flex items-start justify-center w-full overflow-y-auto"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto"
             style={{ 
-              top: '64px', // Match header height
-              height: 'calc(100vh - 64px)', // Subtract header height from viewport
-              paddingTop: '1rem',
+              paddingTop: 'calc(64px + 1rem)', // header height + padding
               paddingBottom: '1rem'
             }}
           >
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl relative mx-4 my-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl relative my-auto">
               <Button
                 variant="ghost"
                 size="icon"
@@ -90,7 +74,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, product })
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="flex flex-col space-y-4"
+                  className="space-y-6"
                 >
                   <motion.img
                     initial={{ opacity: 0 }}
@@ -98,13 +82,13 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, product })
                     transition={{ delay: 0.3 }}
                     src={product.image}
                     alt={product.title}
-                    className="w-full h-[250px] md:h-[300px] object-cover rounded-lg shadow-lg"
+                    className="w-full h-[250px] sm:h-[300px] object-cover rounded-lg shadow-lg"
                   />
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="space-y-3"
+                    className="space-y-4"
                   >
                     <h3 className="text-lg font-semibold dark:text-gray-200">Available Varieties</h3>
                     <div className="flex flex-wrap gap-2">
@@ -125,18 +109,18 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, product })
                   initial={{ opacity: 0, x: 20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 }}
-                  className="flex flex-col space-y-6"
+                  className="space-y-6"
                 >
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-bold mb-4 dark:text-gray-200">{product.title}</h2>
-                    <p className="text-gray-600 dark:text-gray-300">{product.description}</p>
+                    <h2 className="text-2xl sm:text-3xl font-bold mb-4 dark:text-gray-200">{product.title}</h2>
+                    <p className="text-gray-600 dark:text-gray-300 mb-6">{product.description}</p>
                   </div>
 
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5 }}
-                    className="space-y-3"
+                    className="space-y-4"
                   >
                     <h3 className="text-lg font-semibold dark:text-gray-200">Product Details</h3>
                     <div className="space-y-2">
@@ -153,7 +137,7 @@ const ProductModal: React.FC<ProductModalProps> = ({ isOpen, onClose, product })
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
-                    className="space-y-3"
+                    className="space-y-4"
                   >
                     <h3 className="text-lg font-semibold dark:text-gray-200">Benefits</h3>
                     <ul className="list-disc list-inside space-y-2">
